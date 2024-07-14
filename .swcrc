@@ -1,0 +1,13 @@
+{
+  "jsc": {
+    "baseUrl": ".",
+    "parser": {
+      "decorators": false,
+      "dynamicImport": false,
+      "syntax": "typescript",
+      "tsx": false
+    },
+    "target": "es2022"
+  },
+  "minify": false
+}

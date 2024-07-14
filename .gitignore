@@ -1,0 +1,8 @@
+# Files
+*.code-workspace
+
+# Folders
+
+build/
+dist/
+node_modules/

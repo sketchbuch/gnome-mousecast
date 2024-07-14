@@ -1,0 +1,11 @@
+{
+  "autokill": true,
+  "autorun": true,
+  "terminals": [
+    {
+      "name": "Extension",
+      "focus": true,
+      "command": "nvm use"
+    }
+  ]
+}

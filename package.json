@@ -1,0 +1,45 @@
+{
+  "name": "gnome-mousecast",
+  "version": "1.0.0",
+  "description": "An extension for Gnome to show where your mouse is.",
+  "author": {
+    "name": "sketchbuch",
+    "url": "https://github.com/sketchbuch/"
+  },
+  "bugs": {
+    "url": "https://github.com/sketchbuch/gnome-mousecast/issues"
+  },
+  "homepage": "https://github.com/sketchbuch/gnome-mousecast",
+  "license": "GPL-2.0-or-later",
+  "main": "./dist/extension.js",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sketchbuch/gnome-mousecast.git"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "clean": "rimraf ./build && rimraf ./dist",
+    "compile": "swc src --config-file .swcrc --out-dir dist --strip-leading-paths",
+    "package": "yarn typecheck && yarn lint && yarn clean && yarn compile",
+    "lint:prettier": "prettier --write --config ./.prettierrc.js './src/**/*.ts'",
+    "lint:ts": "eslint ./src --fix",
+    "lint": "yarn lint:ts && yarn lint:prettier",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@girs/gjs": "^3.3.0",
+    "@girs/gnome-shell": "^46.0.0-beta8"
+  },
+  "devDependencies": {
+    "@swc/cli": "^0.3.12",
+    "@swc/core": "^1.6.1",
+    "@tsconfig/strictest": "^2.0.5",
+    "@typescript-eslint/eslint-plugin": "^7.13.1",
+    "@typescript-eslint/parser": "^7.13.1",
+    "eslint": "^9.5.0",
+    "prettier": "^3.3.2",
+    "rimraf": "^5.0.7",
+    "typescript": "^5.4.5"
+  }
+}

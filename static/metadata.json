@@ -1,0 +1,6 @@
+{
+  "name": "MouseCast",
+  "description": "An extension for Gnome to show where your mouse is.",
+  "uuid": "mousecast@sketchbuch.dev",
+  "shell-version": ["46"]
+}
