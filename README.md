@@ -25,6 +25,7 @@ gnome-extensions enable mousecast@sketchbuch.dev
 ## Info
 
 - https://gjs.guide/extensions/overview/imports-and-modules.html
+- https://github.com/MattByName/color-tint
 - https://github.com/domferr/tilingshell/blob/main/package.json
 - https://github.com/gjsify/gnome-shell
 - https://github.com/gjsify/ts-for-gir
@@ -34,3 +35,4 @@ gnome-extensions enable mousecast@sketchbuch.dev
 - https://github.com/jeffchannell/jiggle
 - https://github.com/davidgodzsak/mouse-shake.js
 - https://github.com/tobias47n9e/ScreenCoordinates
+- https://wiki.gnome.org/Attic/GnomeShell/Extensions/StepByStepTutorial

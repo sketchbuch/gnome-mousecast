@@ -21,10 +21,13 @@
   "scripts": {
     "clean": "rimraf ./build && rimraf ./dist",
     "compile": "swc src --config-file .swcrc --out-dir dist --strip-leading-paths",
-    "package": "yarn typecheck && yarn lint && yarn clean && yarn compile",
+    "copyfiles": "",
+    "createdir": "",
+    "dev": "yarn package && yarn createdir && yarn copyfiles",
     "lint:prettier": "prettier --write --config ./.prettierrc.js './src/**/*.ts'",
     "lint:ts": "eslint ./src --fix",
     "lint": "yarn lint:ts && yarn lint:prettier",
+    "package": "yarn typecheck && yarn lint && yarn clean && yarn compile",
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
