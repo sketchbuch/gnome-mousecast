@@ -10,18 +10,27 @@ Wayland sessions support running GNOME Shell in window, so an extension can be t
 ### Start a nested GNOME Shell session
 
 ```bash
-dbus-run-session -- gnome-shell --nested --wayland
-```
-
-### Open a terminal inside the new session and enable the extension
-
-```bash
-gnome-extensions enable example@gjs.guide
-```
-
-### Changing window size
-
-```bash
 env MUTTER_DEBUG_DUMMY_MODE_SPECS=1024x768 \
 dbus-run-session -- gnome-shell --nested --wayland
 ```
+
+### Enable Extension
+
+Open a terminal **inside** the new session and enable the extension
+
+```bash
+gnome-extensions enable mousecast@sketchbuch.dev
+```
+
+## Info
+
+- https://gjs.guide/extensions/overview/imports-and-modules.html
+- https://github.com/domferr/tilingshell/blob/main/package.json
+- https://github.com/gjsify/gnome-shell
+- https://github.com/gjsify/ts-for-gir
+- https://gjs.guide/guides/
+- https://gjs.guide/extensions/development/creating.html
+- https://twiddlingbits.net/gnome-shell-extension-development
+- https://github.com/jeffchannell/jiggle
+- https://github.com/davidgodzsak/mouse-shake.js
+- https://github.com/tobias47n9e/ScreenCoordinates
