@@ -9,6 +9,9 @@
   "bugs": {
     "url": "https://github.com/sketchbuch/gnome-mousecast/issues"
   },
+  "config": {
+    "folder": "/home/stephen/.local/share/gnome-shell/extensions/mousecast@sketchbuch.dev"
+  },
   "homepage": "https://github.com/sketchbuch/gnome-mousecast",
   "license": "GPL-2.0-or-later",
   "main": "./dist/extension.js",
@@ -19,11 +22,12 @@
   },
   "sideEffects": false,
   "scripts": {
-    "clean": "rimraf ./build && rimraf ./dist",
+    "clean": "rimraf ./build && rimraf ./dist && rm -rf $npm_package_config_folder",
     "compile": "swc src --config-file .swcrc --out-dir dist --strip-leading-paths",
-    "copyfiles": "",
-    "createdir": "",
-    "dev": "yarn package && yarn createdir && yarn copyfiles",
+    "dev:copy-dynamic": "cp -r ./dist/. $npm_package_config_folder",
+    "dev:copy-static": "cp -r ./static/. $npm_package_config_folder",
+    "dev:create-dir": "mkdir -p $npm_package_config_folder",
+    "dev": "yarn package && yarn dev:create-dir && yarn dev:copy-static  && yarn dev:copy-dynamic",
     "lint:prettier": "prettier --write --config ./.prettierrc.js './src/**/*.ts'",
     "lint:ts": "eslint ./src --fix",
     "lint": "yarn lint:ts && yarn lint:prettier",
