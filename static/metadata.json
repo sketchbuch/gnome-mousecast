@@ -1,6 +1,15 @@
 {
+  "uuid": "mousecast@sketchbuch.dev",
   "name": "MouseCast",
   "description": "An extension for Gnome to show where your mouse is.",
-  "uuid": "mousecast@sketchbuch.dev",
-  "shell-version": ["46"]
+  "donations": {
+    "paypal": "stephenbungert",
+    "custom": ["paypal.me/stephenbungert"]
+  },
+  "gettext-domain": "mousecast@sketchbuch.dev",
+  "session-modes": ["user"],
+  "settings-schema": "org.gnome.shell.extensions.sketchbuch.mousecast",
+  "shell-version": ["46"],
+  "url": "https://gjs.guide/extensions",
+  "version-name": "1.0.0"
 }

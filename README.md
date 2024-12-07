@@ -36,3 +36,4 @@ gnome-extensions enable mousecast@sketchbuch.dev
 - https://github.com/davidgodzsak/mouse-shake.js
 - https://github.com/tobias47n9e/ScreenCoordinates
 - https://wiki.gnome.org/Attic/GnomeShell/Extensions/StepByStepTutorial
+- https://gjs.guide/extensions/overview/anatomy.html
