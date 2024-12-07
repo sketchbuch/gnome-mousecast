@@ -27,11 +27,11 @@
     "dev:dynamic": "cp -r ./dist/. $npm_package_config_folder",
     "dev:static": "cp -r ./static/. $npm_package_config_folder",
     "dev:dir": "mkdir -p $npm_package_config_folder",
-    "dev": "yarn package && yarn dev:dir && yarn dev:static  && yarn dev:dynamic",
+    "dev": "pnpm package && pnpm dev:dir && pnpm dev:static  && pnpm dev:dynamic",
     "lint:prettier": "prettier --write --config ./.prettierrc.js './src/**/*.ts'",
     "lint:ts": "eslint ./src --fix",
-    "lint": "yarn lint:ts && yarn lint:prettier",
-    "package": "yarn typecheck && yarn lint && yarn clean && yarn compile",
+    "lint": "pnpm lint:ts && pnpm lint:prettier",
+    "package": "pnpm typecheck && pnpm lint && pnpm clean && pnpm compile",
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
