@@ -40,10 +40,10 @@ export default class MouseCastExtension extends Extension {
     this.#indicator?.destroy()
     this.#indicator = null
 
-    if (overlay) {
+    /*     if (overlay) {
       Main.uiGroup.remove_child(overlay)
       overlay.destroy()
-    }
+    } */
   }
 
   enable() {
@@ -62,7 +62,7 @@ export default class MouseCastExtension extends Extension {
 
     // Add the indicator to the panel
     Main.panel.addToStatusArea(this.uuid, this.#indicator)
-    this.createOverlay()
-    Main.uiGroup.add_child(overlay)
+    /*     this.createOverlay()
+    Main.uiGroup.add_child(overlay) */
   }
 }

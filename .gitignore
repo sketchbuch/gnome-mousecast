@@ -2,7 +2,10 @@
 *.code-workspace
 
 # Folders
-
 build/
 dist/
 node_modules/
+
+# Folders Temp
+/$npm_package_config_folder
+/~
