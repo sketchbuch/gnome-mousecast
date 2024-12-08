@@ -9,6 +9,8 @@ Wayland sessions support running GNOME Shell in window, so an extension can be t
 
 ### Start a nested GNOME Shell session
 
+`pnpm dev` should run `pnpm nested:shell` as the last command but it fails in vscode (still looking into why). Run the following in a external terminal instead:
+
 ```bash
 env MUTTER_DEBUG_DUMMY_MODE_SPECS=1024x768 \
 dbus-run-session -- gnome-shell --nested --wayland

@@ -17,9 +17,11 @@ export default class MouseCastExtension extends Extension {
   }
 
   createOverlay() {
+    log(`### createOverlay()`)
     const monitor = Main.layoutManager.primaryMonitor
 
     if (monitor) {
+      log(`### createOverlay() - creating`)
       overlay = new St.Bin({ reactive: false })
       overlay.set_size(monitor.width / 2, monitor.height / 2)
       overlay.opacity = 255
@@ -40,18 +42,20 @@ export default class MouseCastExtension extends Extension {
     this.#indicator?.destroy()
     this.#indicator = null
 
-    /*     if (overlay) {
+    if (overlay) {
+      log(`### disable() - remove`)
       Main.uiGroup.remove_child(overlay)
       overlay.destroy()
-    } */
+    }
   }
 
   enable() {
+    log(`### enable()`)
     const [pointerX, pointerY, modifierType] = Desktop.get_pointer()
     // Create a panel button
     this.#indicator = new PanelMenu.Button(0.0, 'MouseCast', false)
 
-    console.log(`### ${pointerX}x${pointerY} - ${modifierType.toString()}`)
+    log(`### enable() - ${pointerX}x${pointerY} - ${modifierType.toString()}`)
 
     // Add an icon
     const icon = new St.Icon({
@@ -62,7 +66,7 @@ export default class MouseCastExtension extends Extension {
 
     // Add the indicator to the panel
     Main.panel.addToStatusArea(this.uuid, this.#indicator)
-    /*     this.createOverlay()
-    Main.uiGroup.add_child(overlay) */
+    this.createOverlay()
+    Main.uiGroup.add_child(overlay)
   }
 }

@@ -28,7 +28,7 @@
     "copy:dynamic": "cp -r ./dist/. $npm_package_config_folder",
     "copy:static": "cp -r ./static/. $npm_package_config_folder",
     "create:dir": "mkdir -p $npm_package_config_folder",
-    "dev": "pnpm package && pnpm create:dir && pnpm copy:static  && pnpm copy:dynamic && pnpm nested:shell",
+    "dev": "pnpm package && pnpm create:dir && pnpm copy:static  && pnpm copy:dynamic",
     "lint:prettier": "prettier --write --config ./.prettierrc.js './src/**/*.ts'",
     "lint:ts": "eslint ./src --fix",
     "lint": "pnpm lint:ts && pnpm lint:prettier",
