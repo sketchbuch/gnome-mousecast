@@ -26,16 +26,35 @@ gnome-extensions enable mousecast@sketchbuch.dev
 
 ## Info
 
-- https://gjs.guide/extensions/overview/imports-and-modules.html
-- https://github.com/MattByName/color-tint
-- https://github.com/domferr/tilingshell/blob/main/package.json
-- https://github.com/gjsify/gnome-shell
-- https://github.com/gjsify/ts-for-gir
-- https://gjs.guide/guides/
-- https://gjs.guide/extensions/development/creating.html
-- https://twiddlingbits.net/gnome-shell-extension-development
-- https://github.com/jeffchannell/jiggle
-- https://github.com/davidgodzsak/mouse-shake.js
-- https://github.com/tobias47n9e/ScreenCoordinates
-- https://wiki.gnome.org/Attic/GnomeShell/Extensions/StepByStepTutorial
-- https://gjs.guide/extensions/overview/anatomy.html
+### Articles
+
+- [Getting started with GNOME Shell extension development](https://blog.jamesreed.dev/gnome-shell-extension-development)
+- [Imports and Modules](https://gjs.guide/extensions/overview/imports-and-modules.html)
+- [Step by step tutorial to create extensions](https://wiki.gnome.org/Attic/GnomeShell/Extensions/StepByStepTutorial)
+
+### GJS
+
+- [Anatomy of an Extension](https://gjs.guide/extensions/overview/anatomy.html)
+- [Developer Guides](https://gjs.guide/guides/)
+- [Getting Started](https://gjs.guide/extensions/development/creating.html)
+
+### Gnome Shell Code
+
+- [panelMenu.js](https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/main/js/ui/panelMenu.js)
+
+### Repos: Ext
+
+- [Colour Tint](https://github.com/MattByName/color-tint)
+- [Jiggle](https://github.com/jeffchannell/jiggle)
+- [ScreenCoordinates](https://github.com/tobias47n9e/ScreenCoordinates)
+- [Tiling Shell](https://github.com/domferr/tilingshell/blob/main/package.json)
+
+### Repos: Other
+
+- [MouiseShake](https://github.com/davidgodzsak/mouse-shake.js)
+- [TS for GIR](https://github.com/gjsify/ts-for-gir)
+- [TypeScript for GNOME Shell](https://github.com/gjsify/gnome-shell)
+
+### Videos
+
+- [How to Create a GNOME Extension (Part 3) - Debugging](https://www.youtube.com/watch?v=uc7bOB6ukBg)
