@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <enum id="org.gnome.shell.extensions.sketchbuch.mousecast.overlay-type">
+    <value value="0" nick="SPOTLIGHT"/>
+    <value value="1" nick="HALO"/>
+    <value value="2" nick="AURA"/>
+    <value value="3" nick="CIRCLE"/>
+  </enum>
+    
+  <schema id="org.gnome.shell.extensions.sketchbuch.mousecast"
+    path="/org/gnome/shell/extensions/sketchbuch/mousecast/">
+    <key name="overlay-type"
+      enum="org.gnome.shell.extensions.sketchbuch.mousecast.overlay-type">
+      <default>'SPOTLIGHT'</default>
+      <summary>summary</summary>
+      <description>description</description>
+    </key>
+  </schema>
+</schemalist>

@@ -1,22 +1,19 @@
-import Clutter from 'gi://Clutter'
-import Shell from 'gi://Shell'
+// import Clutter from 'gi://Clutter'
+// import Shell from 'gi://Shell'
 import St from 'gi://St'
 import { Extension, ExtensionMetadata } from 'resource:///org/gnome/shell/extensions/extension.js'
 import * as Main from 'resource:///org/gnome/shell/ui/main.js'
 import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js'
 
-const Desktop = Shell.Global.get()
-
 export default class MouseCastExtension extends Extension {
   #topbarButton: null | PanelMenu.Button
-  #overlay: null | St.Bin = null
 
   constructor(metadata: ExtensionMetadata) {
     super(metadata)
     this.#topbarButton = null
   }
 
-  createOverlay() {
+  /* createOverlay() {
     log(`### createOverlay()`)
 
     const monitor = Main.layoutManager.primaryMonitor
@@ -36,11 +33,11 @@ export default class MouseCastExtension extends Extension {
         red: 120,
         green: 120,
         blue: 20,
-        alpha: 180,
+        alpha: 255,
       })
       this.#overlay.set_background_color(color)
     }
-  }
+  } */
 
   disable() {
     log(`### disable()`)
@@ -48,22 +45,18 @@ export default class MouseCastExtension extends Extension {
     this.#topbarButton?.destroy()
     this.#topbarButton = null
 
-    if (this.#overlay) {
+    /* if (this.#overlay) {
       log(`### disable() - remove`)
 
       Main.uiGroup.remove_child(this.#overlay)
       this.#overlay.destroy()
-    }
+    } */
   }
 
   enable() {
     log(`### enable()`)
-
-    const [pointerX, pointerY, modifierType] = Desktop.get_pointer()
     // Create a panel button
     this.#topbarButton = new PanelMenu.Button(0.0, this.metadata.name, true)
-
-    log(`### enable() - ${pointerX}x${pointerY} - ${modifierType.toString()}`)
 
     // Add an icon
     const icon = new St.Icon({
@@ -74,16 +67,16 @@ export default class MouseCastExtension extends Extension {
 
     // Add the indicator to the panel
     Main.panel.addToStatusArea(this.uuid, this.#topbarButton)
-    this.createOverlay()
-    Main.uiGroup.add_child(this.#overlay)
+    //this.createOverlay()
+    //Main.uiGroup.add_child(this.#overlay)
 
-    if (this.#overlay) {
+    /*  if (this.#overlay) {
       log(`### overlay opacity: ${this.#overlay.get_opacity()}`)
       log(`### overlay visible: ${this.#overlay.visible}`)
       log(`### overlay width: ${this.#overlay.width}`)
       log(`### overlay height: ${this.#overlay.height}`)
       log(`### overlay x: ${this.#overlay.x}`)
       log(`### overlay y: ${this.#overlay.y}`)
-    }
+    } */
   }
 }

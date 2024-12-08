@@ -22,9 +22,11 @@
   },
   "sideEffects": false,
   "scripts": {
+    "build": "pnpm dev",
     "changever": "sh ./scripts/change_version.sh",
     "clean": "rimraf ./build && rimraf ./dist && rm -rf $npm_package_config_folder",
-    "compile": "swc src --config-file .swcrc --out-dir dist --strip-leading-paths",
+    "compile:ts": "swc src --config-file .swcrc --out-dir dist --strip-leading-paths",
+    "compile:schema": "mkdir -p ./dist/schemas && glib-compile-schemas ./static/schemas --targetdir=./dist/schemas",
     "copy:dynamic": "cp -r ./dist/. $npm_package_config_folder",
     "copy:static": "cp -r ./static/. $npm_package_config_folder",
     "create:dir": "mkdir -p $npm_package_config_folder",
@@ -33,7 +35,7 @@
     "lint:ts": "eslint ./src --fix",
     "lint": "pnpm lint:ts && pnpm lint:prettier",
     "nested:shell": "env MUTTER_DEBUG_DUMMY_MODE_SPECS=1024x768 dbus-run-session -- gnome-shell --nested --wayland",
-    "package": "pnpm typecheck && pnpm lint && pnpm clean && pnpm compile",
+    "package": "pnpm typecheck && pnpm lint && pnpm clean && pnpm compile:ts && pnpm compile:schema",
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
