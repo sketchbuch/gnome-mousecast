@@ -10,7 +10,7 @@
     "url": "https://github.com/sketchbuch/gnome-mousecast/issues"
   },
   "config": {
-    "folder": "/home/stephen/.local/share/gnome-shell/extensions/mousecast@sketchbuch.dev"
+    "folder": "~/.local/share/gnome-shell/extensions/mousecast@sketchbuch.dev"
   },
   "homepage": "https://github.com/sketchbuch/gnome-mousecast",
   "license": "GPL-2.0-or-later",
