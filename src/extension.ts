@@ -64,6 +64,7 @@ export default class MouseCastExtension extends Extension {
     log(`### enable()`)
     log(this.#settings)
 
+    log(this.#settings.get_enum('overlay-type'))
     const [pointerX, pointerY, modifierType] = Desktop.get_pointer()
     // Create a panel button
     this.#topbarButton = new PanelMenu.Button(0.0, this.metadata.name, true)
