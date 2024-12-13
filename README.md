@@ -2,6 +2,9 @@
 
 An extension for Gnome to show where your mouse is.
 
+> [!CAUTION]
+> This extension is not yet ready!
+
 
 ## Developing
 
