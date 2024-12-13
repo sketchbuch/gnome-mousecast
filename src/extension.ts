@@ -1,15 +1,20 @@
 // import Clutter from 'gi://Clutter'
-// import Shell from 'gi://Shell'
+import Gio from 'gi://Gio'
+import Shell from 'gi://Shell'
 import St from 'gi://St'
 import { Extension, ExtensionMetadata } from 'resource:///org/gnome/shell/extensions/extension.js'
 import * as Main from 'resource:///org/gnome/shell/ui/main.js'
 import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js'
 
+const Desktop = Shell.Global.get()
+
 export default class MouseCastExtension extends Extension {
+  #settings: null | Gio.Settings
   #topbarButton: null | PanelMenu.Button
 
   constructor(metadata: ExtensionMetadata) {
     super(metadata)
+    this.#settings = null
     this.#topbarButton = null
   }
 
@@ -44,6 +49,7 @@ export default class MouseCastExtension extends Extension {
 
     this.#topbarButton?.destroy()
     this.#topbarButton = null
+    this.#settings = null
 
     /* if (this.#overlay) {
       log(`### disable() - remove`)
@@ -54,9 +60,15 @@ export default class MouseCastExtension extends Extension {
   }
 
   enable() {
+    this.#settings = this.getSettings('org.gnome.shell.extensions.mousecast')
     log(`### enable()`)
+    log(this.#settings)
+
+    const [pointerX, pointerY, modifierType] = Desktop.get_pointer()
     // Create a panel button
     this.#topbarButton = new PanelMenu.Button(0.0, this.metadata.name, true)
+
+    log(`### enable() - ${pointerX}x${pointerY} - ${modifierType.toString()}`)
 
     // Add an icon
     const icon = new St.Icon({

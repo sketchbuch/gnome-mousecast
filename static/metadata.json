@@ -8,7 +8,7 @@
   },
   "gettext-domain": "mousecast@sketchbuch.dev",
   "session-modes": ["user"],
-  "settings-schema": "org.gnome.shell.extensions.sketchbuch.mousecast",
+  "settings-schema": "org.gnome.shell.extensions.mousecast",
   "shell-version": ["46"],
   "url": "https://gjs.guide/extensions",
   "version-name": "1.0.0"

@@ -14,6 +14,9 @@ importers:
       '@girs/gnome-shell':
         specifier: ^46.0.0-beta8
         version: 46.0.2
+      '@girs/gtk-4.0':
+        specifier: 4.16.3-4.0.0-beta.19
+        version: 4.16.3-4.0.0-beta.19
     devDependencies:
       '@swc/cli':
         specifier: ^0.3.12

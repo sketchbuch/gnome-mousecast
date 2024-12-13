@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "experimentalDecorators": true,
-    "lib": ["ES2022"],
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "lib": ["ESNext"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "outDir": "./dist",
@@ -12,7 +12,7 @@
     "sourceMap": false,
     "strict": true,
     "strictNullChecks": true,
-    "target": "ES2022"
+    "target": "ESNext"
   },
   "exclude": ["build", "dist", "node_modules", "static"],
   "include": ["types/**/*.d.ts", "src/**/*.ts"]

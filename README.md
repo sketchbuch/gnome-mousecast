@@ -26,11 +26,12 @@ gnome-extensions enable mousecast@sketchbuch.dev
 
 ## Info
 
-### Articles
+### Articles/Help
 
 - [Getting started with GNOME Shell extension development](https://blog.jamesreed.dev/gnome-shell-extension-development)
 - [Imports and Modules](https://gjs.guide/extensions/overview/imports-and-modules.html)
 - [Step by step tutorial to create extensions](https://wiki.gnome.org/Attic/GnomeShell/Extensions/StepByStepTutorial)
+- [Why doesn’t my gschema added to dconf after enablnig my extension](https://discourse.gnome.org/t/why-doesnt-my-gschema-added-to-dconf-after-enablnig-my-extension/16148)
 
 ### GJS
 

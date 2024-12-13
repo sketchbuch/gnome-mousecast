@@ -10,7 +10,8 @@
     "url": "https://github.com/sketchbuch/gnome-mousecast/issues"
   },
   "config": {
-    "folder": "/home/stephen/.local/share/gnome-shell/extensions/mousecast@sketchbuch.dev"
+    "folder": "/home/stephen/.local/share/gnome-shell/extensions/mousecast@sketchbuch.dev",
+    "settingsSchema": "org.gnome.shell.extensions.mousecast"
   },
   "homepage": "https://github.com/sketchbuch/gnome-mousecast",
   "license": "GPL-2.0-or-later",
@@ -26,16 +27,17 @@
     "changever": "sh ./scripts/change_version.sh",
     "clean": "rimraf ./build && rimraf ./dist && rm -rf $npm_package_config_folder",
     "compile:ts": "swc src --config-file .swcrc --out-dir dist --strip-leading-paths",
-    "compile:schema": "mkdir -p ./dist/schemas && glib-compile-schemas ./static/schemas --targetdir=./dist/schemas",
     "copy:dynamic": "cp -r ./dist/. $npm_package_config_folder",
     "copy:static": "cp -r ./static/. $npm_package_config_folder",
     "create:dir": "mkdir -p $npm_package_config_folder",
-    "dev": "pnpm package && pnpm create:dir && pnpm copy:static  && pnpm copy:dynamic",
+    "dev:add:schema": "gsettings --schemadir /home/stephen/.local/share/gnome-shell/extensions/mousecast@sketchbuch.dev/schemas set org.gnome.shell.extensions.mousecast",
+    "dev:compile:schema": "glib-compile-schemas $npm_package_config_folder/schemas --targetdir=$npm_package_config_folder/schemas",
+    "dev": "pnpm package && pnpm create:dir && pnpm copy:static  && pnpm copy:dynamic && pnpm dev:compile:schema && pnpm dev:add:schema",
     "lint:prettier": "prettier --write --config ./.prettierrc.js './src/**/*.ts'",
     "lint:ts": "eslint ./src --fix",
     "lint": "pnpm lint:ts && pnpm lint:prettier",
     "nested:shell": "env MUTTER_DEBUG_DUMMY_MODE_SPECS=1024x768 dbus-run-session -- gnome-shell --nested --wayland",
-    "package": "pnpm typecheck && pnpm lint && pnpm clean && pnpm compile:ts && pnpm compile:schema",
+    "package": "pnpm typecheck && pnpm lint && pnpm clean && pnpm compile:ts",
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
