@@ -22,7 +22,7 @@
   },
   "sideEffects": false,
   "scripts": {
-    "build": "pnpm dev",
+    "build": "echo 'Build is not available yet!'",
     "changever": "sh ./scripts/change_version.sh",
     "clean": "rimraf ./build && rimraf ./dist && rm -rf $npm_package_config_folder",
     "compile:ts": "swc src --config-file .swcrc --out-dir dist --strip-leading-paths",
