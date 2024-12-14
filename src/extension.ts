@@ -47,18 +47,19 @@ export default class MouseCastExtension extends Extension {
     // Add the indicator to the panel
     Main.panel.addToStatusArea(this.uuid, this.#topbarButton)
 
-    const size = 100
+    let monitor = Main.layoutManager.primaryMonitor
 
     const container = new St.Bin({
       style: 'background-color: gold',
-      reactive: true,
-      can_focus: true,
+      opacity: 50,
+      reactive: false,
+      can_focus: false,
       track_hover: true,
-      width: size,
-      height: size,
+      width: monitor?.width ?? 200,
+      height: monitor?.height ?? 200,
     })
 
-    container.set_position(400, 400)
+    container.set_position(0, 0)
 
     Main.layoutManager.addChrome(container, {
       affectsInputRegion: true,
