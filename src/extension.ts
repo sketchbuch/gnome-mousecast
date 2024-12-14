@@ -50,13 +50,13 @@ export default class MouseCastExtension extends Extension {
     let monitor = Main.layoutManager.primaryMonitor
 
     const container = new St.Bin({
-      style: 'background-color: gold',
+      can_focus: false,
+      height: monitor?.height ?? 200,
       opacity: 50,
       reactive: false,
-      can_focus: false,
-      track_hover: true,
+      style: 'background-color: gold',
+      track_hover: false,
       width: monitor?.width ?? 200,
-      height: monitor?.height ?? 200,
     })
 
     container.set_position(0, 0)
