@@ -10,6 +10,6 @@
   "session-modes": ["user"],
   "settings-schema": "org.gnome.shell.extensions.mousecast",
   "shell-version": ["46"],
-  "url": "https://gjs.guide/extensions",
+  "url": "https://github.com/sketchbuch/gnome-mousecast",
   "version-name": "1.0.0"
 }

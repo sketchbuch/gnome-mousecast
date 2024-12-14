@@ -14,6 +14,7 @@ export default class MouseCastExtension extends Extension {
 
   constructor(metadata: ExtensionMetadata) {
     super(metadata)
+
     this.#settings = null
     this.#topbarButton = null
   }
@@ -47,9 +48,9 @@ export default class MouseCastExtension extends Extension {
   disable() {
     log(`### disable()`)
 
+    this.#settings = null
     this.#topbarButton?.destroy()
     this.#topbarButton = null
-    this.#settings = null
 
     /* if (this.#overlay) {
       log(`### disable() - remove`)
@@ -60,11 +61,10 @@ export default class MouseCastExtension extends Extension {
   }
 
   enable() {
-    this.#settings = this.getSettings('org.gnome.shell.extensions.mousecast')
     log(`### enable()`)
-    log(this.#settings)
-
+    this.#settings = this.getSettings()
     log(this.#settings.get_enum('overlay-type'))
+
     const [pointerX, pointerY, modifierType] = Desktop.get_pointer()
     // Create a panel button
     this.#topbarButton = new PanelMenu.Button(0.0, this.metadata.name, true)
