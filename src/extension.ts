@@ -47,23 +47,26 @@ export default class MouseCastExtension extends Extension {
     // Add the indicator to the panel
     Main.panel.addToStatusArea(this.uuid, this.#topbarButton)
 
-    let monitor = Main.layoutManager.primaryMonitor
+    const size = 50
 
-    const container = new St.Bin({
+    const overlay = new St.Bin({
       can_focus: false,
-      height: monitor?.height ?? 200,
+      height: size * 2,
       opacity: 50,
       reactive: false,
-      style: 'background-color: gold',
+      style_class: 'sketchbuch-mousecast-overlay-aura',
       track_hover: false,
-      width: monitor?.width ?? 200,
+      width: size * 2,
     })
 
-    container.set_position(0, 0)
+    overlay.set_position(300, 300)
 
-    Main.layoutManager.addChrome(container, {
-      affectsInputRegion: true,
-      trackFullscreen: true,
+    log(`### height - ${overlay.height}`)
+    log(`### width - ${overlay.width}`)
+
+    Main.layoutManager.addChrome(overlay, {
+      affectsInputRegion: false,
+      trackFullscreen: false,
     })
   }
 }
