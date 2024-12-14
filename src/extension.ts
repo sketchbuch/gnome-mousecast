@@ -1,4 +1,3 @@
-// import Clutter from 'gi://Clutter'
 import Gio from 'gi://Gio'
 import Shell from 'gi://Shell'
 import St from 'gi://St'
@@ -19,51 +18,18 @@ export default class MouseCastExtension extends Extension {
     this.#topbarButton = null
   }
 
-  /* createOverlay() {
-    log(`### createOverlay()`)
-
-    const monitor = Main.layoutManager.primaryMonitor
-
-    if (monitor) {
-      log(`### monitor.width: ${monitor.width}`)
-      log(`### monitor.height: ${monitor.height}`)
-      log(`### monitor.height / 2: ${monitor.height / 2}`)
-
-      this.#overlay = new St.Bin({ reactive: false })
-      this.#overlay.set_size(monitor.width / 2, monitor.height / 2)
-      this.#overlay.opacity = 255
-      this.#overlay.set_position(300, 300)
-      this.#overlay.set_z_position(700)
-
-      var color = new Clutter.Color({
-        red: 120,
-        green: 120,
-        blue: 20,
-        alpha: 255,
-      })
-      this.#overlay.set_background_color(color)
-    }
-  } */
-
   disable() {
     log(`### disable()`)
 
     this.#settings = null
     this.#topbarButton?.destroy()
     this.#topbarButton = null
-
-    /* if (this.#overlay) {
-      log(`### disable() - remove`)
-
-      Main.uiGroup.remove_child(this.#overlay)
-      this.#overlay.destroy()
-    } */
   }
 
   enable() {
     log(`### enable()`)
     this.#settings = this.getSettings()
-    log(this.#settings.get_enum('overlay-type'))
+    log(`### enable() - overlay type: ${this.#settings.get_enum('overlay-type')}`)
 
     const [pointerX, pointerY, modifierType] = Desktop.get_pointer()
     // Create a panel button
@@ -80,16 +46,23 @@ export default class MouseCastExtension extends Extension {
 
     // Add the indicator to the panel
     Main.panel.addToStatusArea(this.uuid, this.#topbarButton)
-    //this.createOverlay()
-    //Main.uiGroup.add_child(this.#overlay)
 
-    /*  if (this.#overlay) {
-      log(`### overlay opacity: ${this.#overlay.get_opacity()}`)
-      log(`### overlay visible: ${this.#overlay.visible}`)
-      log(`### overlay width: ${this.#overlay.width}`)
-      log(`### overlay height: ${this.#overlay.height}`)
-      log(`### overlay x: ${this.#overlay.x}`)
-      log(`### overlay y: ${this.#overlay.y}`)
-    } */
+    const size = 100
+
+    const container = new St.Bin({
+      style: 'background-color: gold',
+      reactive: true,
+      can_focus: true,
+      track_hover: true,
+      width: size,
+      height: size,
+    })
+
+    container.set_position(400, 400)
+
+    Main.layoutManager.addChrome(container, {
+      affectsInputRegion: true,
+      trackFullscreen: true,
+    })
   }
 }

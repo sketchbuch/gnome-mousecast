@@ -41,6 +41,7 @@ gnome-extensions enable mousecast@sketchbuch.dev
 - [Anatomy of an Extension](https://gjs.guide/extensions/overview/anatomy.html)
 - [Developer Guides](https://gjs.guide/guides/)
 - [Getting Started](https://gjs.guide/extensions/development/creating.html)
+- [GJS Docs](https://gjs-docs.gnome.org/)
 
 ### Gnome Shell Code
 
@@ -48,7 +49,7 @@ gnome-extensions enable mousecast@sketchbuch.dev
 
 ### Repos: Ext
 
-- [Colour Tint](https://github.com/MattByName/color-tint)
+- [Colour Tint](https://github.cocm/MattByName/color-tint)
 - [Jiggle](https://github.com/jeffchannell/jiggle)
 - [ScreenCoordinates](https://github.com/tobias47n9e/ScreenCoordinates)
 - [Tiling Shell](https://github.com/domferr/tilingshell/blob/main/package.json)
