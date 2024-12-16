@@ -1,11 +1,28 @@
-.sketchbuch-mousecast-overlay {
+/* .sketchbuch-mousecast-overlay {
   background-color: rgba(0, 0, 0, 0.33);
+} */
+
+.sketchbuch-mousecast-overlay__spotlight1 {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  box-shadow: 0px 0px 20px 20px rgba(255, 255, 255, 0.5);
 }
 
-.sketchbuch-mousecast-overlay__effect {
+.sketchbuch-mousecast-overlay__halo {
+  border-radius: 25px;
+  border: 2px solid white;
+  box-shadow: 0px 0px 50px 15px rgba(255, 255, 255, 1);
+}
+
+.sketchbuch-mousecast-overlay__aura {
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 25px;
-  filter: blur(4px);
   box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.33);
-  opacity: 123;
+  filter: blur(4px);
+}
+
+.sketchbuch-mousecast-overlay__spotlight {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 25px;
+  box-shadow: 0px 0px 20px 20px rgba(255, 255, 255, 0.5);
 }

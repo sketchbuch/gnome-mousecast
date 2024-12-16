@@ -21,8 +21,6 @@ export default class MouseCastExtension extends Extension {
   }
 
   disable() {
-    log(`### disable()`)
-
     this.#overlay = null
     this.#settings = null
     this.#topbarButton?.destroy()
@@ -30,15 +28,12 @@ export default class MouseCastExtension extends Extension {
   }
 
   enable() {
-    log(`### enable()`)
     this.#settings = this.getSettings()
     log(`### enable() - overlay type: ${this.#settings.get_enum('overlay-type')}`)
 
     const [initialPointerX, initialPointerY] = Desktop.get_pointer()
     // Create a panel button
     this.#topbarButton = new PanelMenu.Button(0.0, this.metadata.name, true)
-
-    log(`### initial pointer - x:${initialPointerX} y:${initialPointerY}`)
 
     // Add an icon
     const icon = new St.Icon({
@@ -50,7 +45,7 @@ export default class MouseCastExtension extends Extension {
     // Add the indicator to the panel
     Main.panel.addToStatusArea(this.uuid, this.#topbarButton)
 
-    const size = 50
+    const size = 10
     const monitor = Main.layoutManager.primaryMonitor
 
     this.#overlay = new St.Bin({
@@ -62,21 +57,26 @@ export default class MouseCastExtension extends Extension {
       track_hover: false,
       width: monitor ? monitor?.width + size : 0,
     })
-    log(`### height - ${this.#overlay.height}`)
-    log(`### width - ${this.#overlay.width}`)
 
     const widget = new St.Widget({
       can_focus: false,
       height: size,
       reactive: false,
-      style_class: 'sketchbuch-mousecast-overlay__effect',
+      style_class: 'sketchbuch-mousecast-overlay__spotlight1',
       track_hover: false,
       width: size,
     })
 
+    const widgetOffset = size / 2
+    const cursorOffsetX = 3
+    const cursorOffsetY = 6
+
     this.#overlay.set_position(0, 0)
     this.#overlay.add_child(widget)
-    widget.set_position(initialPointerX, initialPointerY)
+    widget.set_position(
+      initialPointerX - (widgetOffset - cursorOffsetX),
+      initialPointerY - (widgetOffset - cursorOffsetY)
+    )
 
     Main.layoutManager.addChrome(this.#overlay, {
       affectsInputRegion: false,
@@ -85,7 +85,10 @@ export default class MouseCastExtension extends Extension {
 
     global.stage.connect('captured-event', () => {
       const [pointerX, pointerY] = Desktop.get_pointer()
-      widget.set_position(pointerX, pointerY)
+      widget.set_position(
+        pointerX - (widgetOffset - cursorOffsetX),
+        pointerY - (widgetOffset - cursorOffsetY)
+      )
     })
   }
 }
