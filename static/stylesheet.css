@@ -3,9 +3,9 @@
 } */
 
 .sketchbuch-mousecast-overlay__spotlight1 {
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 5px;
-  box-shadow: 0px 0px 20px 20px rgba(255, 255, 255, 0.5);
+  border-radius: 50px;
+  box-shadow: 0px 0px 50px 15px black;
+  border: 2px solid white;
 }
 
 .sketchbuch-mousecast-overlay__halo {

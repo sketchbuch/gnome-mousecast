@@ -45,7 +45,7 @@ export default class MouseCastExtension extends Extension {
     // Add the indicator to the panel
     Main.panel.addToStatusArea(this.uuid, this.#topbarButton)
 
-    const size = 10
+    const size = 50
     const monitor = Main.layoutManager.primaryMonitor
 
     this.#overlay = new St.Bin({
