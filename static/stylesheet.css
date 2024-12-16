@@ -1,34 +1,11 @@
 .sketchbuch-mousecast-overlay {
-  background-color: green;
+  background-color: rgba(0, 0, 0, 0.33);
 }
 
-.sketchbuch-mousecast-overlay-aura {
-}
-
-.sketchbuch-mousecast-overlay__tl {
-  width: 50px;
-  height: 50px;
-  background-color: #e65525;
-  border-top-right-radius: 50%;
-}
-
-.sketchbuch-mousecast-overlay__tr {
-  width: 50px;
-  height: 50px;
-  background-color: #e65525;
-  border-top-left-radius: 50%;
-}
-
-.sketchbuch-mousecast-overlay__bl {
-  width: 50px;
-  height: 50px;
-  background-color: #e65525;
-  border-bottom-right-radius: 50%;
-}
-
-.sketchbuch-mousecast-overlay__br {
-  width: 50px;
-  height: 50px;
-  background-color: #e65525;
-  border-bottom-left-radius: 50%;
+.sketchbuch-mousecast-overlay__effect {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 25px;
+  filter: blur(4px);
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.33);
+  opacity: 123;
 }

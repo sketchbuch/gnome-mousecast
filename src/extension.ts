@@ -8,12 +8,14 @@ import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js'
 const Desktop = Shell.Global.get()
 
 export default class MouseCastExtension extends Extension {
+  #overlay: null | St.Bin
   #settings: null | Gio.Settings
   #topbarButton: null | PanelMenu.Button
 
   constructor(metadata: ExtensionMetadata) {
     super(metadata)
 
+    this.#overlay = null
     this.#settings = null
     this.#topbarButton = null
   }
@@ -21,6 +23,7 @@ export default class MouseCastExtension extends Extension {
   disable() {
     log(`### disable()`)
 
+    this.#overlay = null
     this.#settings = null
     this.#topbarButton?.destroy()
     this.#topbarButton = null
@@ -31,11 +34,11 @@ export default class MouseCastExtension extends Extension {
     this.#settings = this.getSettings()
     log(`### enable() - overlay type: ${this.#settings.get_enum('overlay-type')}`)
 
-    const [pointerX, pointerY, modifierType] = Desktop.get_pointer()
+    const [initialPointerX, initialPointerY] = Desktop.get_pointer()
     // Create a panel button
     this.#topbarButton = new PanelMenu.Button(0.0, this.metadata.name, true)
 
-    log(`### enable() - ${pointerX}x${pointerY} - ${modifierType.toString()}`)
+    log(`### initial pointer - x:${initialPointerX} y:${initialPointerY}`)
 
     // Add an icon
     const icon = new St.Icon({
@@ -48,25 +51,41 @@ export default class MouseCastExtension extends Extension {
     Main.panel.addToStatusArea(this.uuid, this.#topbarButton)
 
     const size = 50
+    const monitor = Main.layoutManager.primaryMonitor
 
-    const overlay = new St.Bin({
+    this.#overlay = new St.Bin({
       can_focus: false,
-      height: size * 2,
-      opacity: 50,
+      height: monitor ? monitor?.height + size : 0,
+      opacity: 255,
       reactive: false,
-      style_class: 'sketchbuch-mousecast-overlay-aura',
+      style_class: 'sketchbuch-mousecast-overlay',
       track_hover: false,
-      width: size * 2,
+      width: monitor ? monitor?.width + size : 0,
+    })
+    log(`### height - ${this.#overlay.height}`)
+    log(`### width - ${this.#overlay.width}`)
+
+    const widget = new St.Widget({
+      can_focus: false,
+      height: size,
+      reactive: false,
+      style_class: 'sketchbuch-mousecast-overlay__effect',
+      track_hover: false,
+      width: size,
     })
 
-    overlay.set_position(300, 300)
+    this.#overlay.set_position(0, 0)
+    this.#overlay.add_child(widget)
+    widget.set_position(initialPointerX, initialPointerY)
 
-    log(`### height - ${overlay.height}`)
-    log(`### width - ${overlay.width}`)
-
-    Main.layoutManager.addChrome(overlay, {
+    Main.layoutManager.addChrome(this.#overlay, {
       affectsInputRegion: false,
       trackFullscreen: false,
+    })
+
+    global.stage.connect('captured-event', () => {
+      const [pointerX, pointerY] = Desktop.get_pointer()
+      widget.set_position(pointerX, pointerY)
     })
   }
 }
