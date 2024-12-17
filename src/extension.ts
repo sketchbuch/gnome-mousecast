@@ -81,8 +81,10 @@ export default class MouseCastExtension extends Extension {
   setWidgetPosition() {
     if (this.#overlay && this.#widget) {
       const [pointerX, pointerY, modifier] = Desktop.get_pointer()
+      const showMouse = this.#useModifier && modifier === 20
+      const isVisible = this.#overlay.is_visible()
 
-      if ((this.#useModifier && modifier === 20) || !this.#useModifier) {
+      if (showMouse || !this.#useModifier) {
         const widgetOffset = this.#size / 2
         const cursorOffsetX = 3
         const cursorOffsetY = 6
@@ -92,10 +94,10 @@ export default class MouseCastExtension extends Extension {
           pointerY - (widgetOffset - cursorOffsetY)
         )
 
-        if (!this.#overlay.is_visible()) {
+        if (!isVisible) {
           this.#overlay?.show()
         }
-      } else if (this.#useModifier && modifier !== 20 && this.#overlay.is_visible()) {
+      } else if (!showMouse && isVisible) {
         this.#overlay?.hide()
       }
     }
