@@ -8,10 +8,11 @@ const Desktop = Shell.Global.get()
 
 export default class MouseCastExtension extends Extension {
   //#settings: null | Gio.Settings
+  #mouseTrackerId = -1
   #overlay: null | St.Bin
   #size = 50
   #topbarButton: null | PanelMenu.Button
-  #useModifier: boolean = true
+  #useModifier = true
   #widget: null | St.Widget
 
   constructor(metadata: ExtensionMetadata) {
@@ -68,7 +69,7 @@ export default class MouseCastExtension extends Extension {
       can_focus: false,
       height: this.#size,
       reactive: false,
-      style_class: 'sketchbuch-mousecast-overlay__spotlight1',
+      style_class: 'sketchbuch-mousecast-overlay__spotlight',
       track_hover: false,
       width: this.#size,
     })
@@ -104,7 +105,7 @@ export default class MouseCastExtension extends Extension {
   }
 
   trackMouse() {
-    global.stage.connect('captured-event', () => {
+    this.#mouseTrackerId = global.stage.connect('captured-event', () => {
       this.setWidgetPosition()
     })
   }
@@ -115,6 +116,8 @@ export default class MouseCastExtension extends Extension {
     this.#topbarButton?.destroy()
     this.#topbarButton = null
     this.#widget = null
+
+    global.stage.disconnect(this.#mouseTrackerId)
   }
 
   enable() {
@@ -123,8 +126,8 @@ export default class MouseCastExtension extends Extension {
     this.createOverlay()
     this.createWidget()
     this.createTopBarButton()
+    this.addUi()
     this.setWidgetPosition()
     this.trackMouse()
-    this.addUi()
   }
 }
