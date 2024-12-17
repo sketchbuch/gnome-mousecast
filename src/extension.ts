@@ -1,4 +1,3 @@
-//import Gio from 'gi://Gio'
 import Shell from 'gi://Shell'
 import St from 'gi://St'
 import { Extension, ExtensionMetadata } from 'resource:///org/gnome/shell/extensions/extension.js'
@@ -8,17 +7,18 @@ import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js'
 const Desktop = Shell.Global.get()
 
 export default class MouseCastExtension extends Extension {
-  #overlay: null | St.Bin
   //#settings: null | Gio.Settings
-  #size: number = 50
+  #overlay: null | St.Bin
+  #size = 50
   #topbarButton: null | PanelMenu.Button
+  #useModifier: boolean = true
   #widget: null | St.Widget
 
   constructor(metadata: ExtensionMetadata) {
     super(metadata)
 
-    this.#overlay = null
     //this.#settings = null
+    this.#overlay = null
     this.#topbarButton = null
     this.#widget = null
   }
@@ -79,17 +79,25 @@ export default class MouseCastExtension extends Extension {
   }
 
   setWidgetPosition() {
-    if (this.#widget) {
-      const [pointerX, pointerY] = Desktop.get_pointer()
+    if (this.#overlay && this.#widget) {
+      const [pointerX, pointerY, modifier] = Desktop.get_pointer()
 
-      const widgetOffset = this.#size / 2
-      const cursorOffsetX = 3
-      const cursorOffsetY = 6
+      if ((this.#useModifier && modifier === 20) || !this.#useModifier) {
+        const widgetOffset = this.#size / 2
+        const cursorOffsetX = 3
+        const cursorOffsetY = 6
 
-      this.#widget.set_position(
-        pointerX - (widgetOffset - cursorOffsetX),
-        pointerY - (widgetOffset - cursorOffsetY)
-      )
+        this.#widget.set_position(
+          pointerX - (widgetOffset - cursorOffsetX),
+          pointerY - (widgetOffset - cursorOffsetY)
+        )
+
+        if (!this.#overlay.is_visible()) {
+          this.#overlay?.show()
+        }
+      } else if (this.#useModifier && modifier !== 20 && this.#overlay.is_visible()) {
+        this.#overlay?.hide()
+      }
     }
   }
 
