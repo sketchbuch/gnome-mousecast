@@ -1,4 +1,4 @@
-import Gio from 'gi://Gio'
+//import Gio from 'gi://Gio'
 import Shell from 'gi://Shell'
 import St from 'gi://St'
 import { Extension, ExtensionMetadata } from 'resource:///org/gnome/shell/extensions/extension.js'
@@ -9,86 +9,112 @@ const Desktop = Shell.Global.get()
 
 export default class MouseCastExtension extends Extension {
   #overlay: null | St.Bin
-  #settings: null | Gio.Settings
+  //#settings: null | Gio.Settings
+  #size: number = 50
   #topbarButton: null | PanelMenu.Button
+  #widget: null | St.Widget
 
   constructor(metadata: ExtensionMetadata) {
     super(metadata)
 
     this.#overlay = null
-    this.#settings = null
+    //this.#settings = null
     this.#topbarButton = null
+    this.#widget = null
   }
 
-  disable() {
-    this.#overlay = null
-    this.#settings = null
-    this.#topbarButton?.destroy()
-    this.#topbarButton = null
+  addUi() {
+    if (this.#overlay) {
+      Main.layoutManager.addChrome(this.#overlay, {
+        affectsInputRegion: false,
+        trackFullscreen: false,
+      })
+    }
+
+    if (this.#topbarButton) {
+      Main.panel.addToStatusArea(this.uuid, this.#topbarButton)
+    }
   }
 
-  enable() {
-    this.#settings = this.getSettings()
-    log(`### enable() - overlay type: ${this.#settings.get_enum('overlay-type')}`)
-
-    const [initialPointerX, initialPointerY] = Desktop.get_pointer()
-    // Create a panel button
-    this.#topbarButton = new PanelMenu.Button(0.0, this.metadata.name, true)
-
-    // Add an icon
-    const icon = new St.Icon({
-      icon_name: 'input-mouse-symbolic',
-      style_class: 'system-status-icon',
-    })
-    this.#topbarButton.add_child(icon)
-
-    // Add the indicator to the panel
-    Main.panel.addToStatusArea(this.uuid, this.#topbarButton)
-
-    const size = 50
+  createOverlay() {
     const monitor = Main.layoutManager.primaryMonitor
 
     this.#overlay = new St.Bin({
       can_focus: false,
-      height: monitor ? monitor?.height + size : 0,
+      height: monitor ? monitor?.height + this.#size : 0,
       opacity: 255,
       reactive: false,
       style_class: 'sketchbuch-mousecast-overlay',
       track_hover: false,
-      width: monitor ? monitor?.width + size : 0,
+      width: monitor ? monitor?.width + this.#size : 0,
     })
-
-    const widget = new St.Widget({
-      can_focus: false,
-      height: size,
-      reactive: false,
-      style_class: 'sketchbuch-mousecast-overlay__spotlight1',
-      track_hover: false,
-      width: size,
-    })
-
-    const widgetOffset = size / 2
-    const cursorOffsetX = 3
-    const cursorOffsetY = 6
 
     this.#overlay.set_position(0, 0)
-    this.#overlay.add_child(widget)
-    widget.set_position(
-      initialPointerX - (widgetOffset - cursorOffsetX),
-      initialPointerY - (widgetOffset - cursorOffsetY)
-    )
+  }
 
-    Main.layoutManager.addChrome(this.#overlay, {
-      affectsInputRegion: false,
-      trackFullscreen: false,
+  createTopBar() {
+    this.#topbarButton = new PanelMenu.Button(0.0, this.metadata.name, true)
+
+    const icon = new St.Icon({
+      icon_name: 'input-mouse-symbolic',
+      style_class: 'system-status-icon',
     })
 
+    this.#topbarButton.add_child(icon)
+  }
+
+  createWidget() {
+    this.#widget = new St.Widget({
+      can_focus: false,
+      height: this.#size,
+      reactive: false,
+      style_class: 'sketchbuch-mousecast-overlay__halo',
+      track_hover: false,
+      width: this.#size,
+    })
+
+    if (this.#overlay) {
+      this.#overlay.add_child(this.#widget)
+    }
+  }
+
+  setWidgetPosition(x: number, y: number) {
+    if (this.#widget) {
+      const widgetOffset = this.#size / 2
+      const cursorOffsetX = 3
+      const cursorOffsetY = 6
+
+      this.#widget.set_position(
+        x - (widgetOffset - cursorOffsetX),
+        y - (widgetOffset - cursorOffsetY)
+      )
+    }
+  }
+
+  trackMouse() {
     global.stage.connect('captured-event', () => {
       const [pointerX, pointerY] = Desktop.get_pointer()
-      widget.set_position(
-        pointerX - (widgetOffset - cursorOffsetX),
-        pointerY - (widgetOffset - cursorOffsetY)
-      )
+      this.setWidgetPosition(pointerX, pointerY)
     })
+  }
+
+  disable() {
+    this.#overlay = null
+    //this.#settings = null
+    this.#topbarButton?.destroy()
+    this.#topbarButton = null
+    this.#widget = null
+  }
+
+  enable() {
+    //this.#settings = this.getSettings()
+    const [initialPointerX, initialPointerY] = Desktop.get_pointer()
+
+    this.createOverlay()
+    this.createWidget()
+    this.createTopBar()
+    this.setWidgetPosition(initialPointerX, initialPointerY)
+    this.addUi()
+    this.trackMouse()
   }
 }
