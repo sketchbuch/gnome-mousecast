@@ -105,9 +105,11 @@ export default class MouseCastExtension extends Extension {
   }
 
   trackMouse() {
-    this.#mouseTrackerId = global.stage.connect('captured-event', () => {
-      this.setWidgetPosition()
-    })
+    if (this.#mouseTrackerId === -1) {
+      this.#mouseTrackerId = global.stage.connect('captured-event', () => {
+        this.setWidgetPosition()
+      })
+    }
   }
 
   disable() {
@@ -117,7 +119,9 @@ export default class MouseCastExtension extends Extension {
     this.#topbarButton = null
     this.#widget = null
 
-    global.stage.disconnect(this.#mouseTrackerId)
+    if (this.#mouseTrackerId !== -1) {
+      global.stage.disconnect(this.#mouseTrackerId)
+    }
   }
 
   enable() {
