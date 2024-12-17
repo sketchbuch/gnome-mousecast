@@ -55,7 +55,7 @@ export default class MouseCastExtension extends Extension {
   }
 
   createTopBarButton() {
-    this.#topbarButton = new PanelMenu.Button(0.0, this.metadata.name, true)
+    this.#topbarButton = new PanelMenu.Button(0.0, this.metadata.name, false)
 
     const icon = new St.Icon({
       icon_name: 'input-mouse-symbolic',
@@ -67,9 +67,12 @@ export default class MouseCastExtension extends Extension {
 
   createTopBarMenu() {
     if (this.#topbarButton) {
-      const menu = new PopupMenu.PopupMenu(this.#topbarButton, 0.5, St.Side.TOP)
+      /* const menu = new PopupMenu.PopupMenu(this.#topbarButton, 0.5, St.Side.TOP) */
+      /*menu.addAction('Settings', () => console.log('activated'))
+      this.#topbarButton.setMenu(menu) */
+      const menu = this.#topbarButton.menu as PopupMenu.PopupMenu
       menu.addAction('Settings', () => console.log('activated'))
-      this.#topbarButton.setMenu(menu)
+      menu.setSourceAlignment(0.5)
     }
   }
 
