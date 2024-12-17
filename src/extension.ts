@@ -93,10 +93,10 @@ export default class MouseCastExtension extends Extension {
           pointerX - (widgetOffset - cursorOffsetX),
           pointerY - (widgetOffset - cursorOffsetY)
         )
+      }
 
-        if (!isVisible) {
-          this.#overlay?.show()
-        }
+      if (needsOverlay && !isVisible) {
+        this.#overlay?.show()
       } else if (!needsOverlay && isVisible) {
         this.#overlay?.hide()
       }
