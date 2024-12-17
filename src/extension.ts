@@ -52,7 +52,7 @@ export default class MouseCastExtension extends Extension {
     this.#overlay.set_position(0, 0)
   }
 
-  createTopBar() {
+  createTopBarButton() {
     this.#topbarButton = new PanelMenu.Button(0.0, this.metadata.name, true)
 
     const icon = new St.Icon({
@@ -122,7 +122,7 @@ export default class MouseCastExtension extends Extension {
 
     this.createOverlay()
     this.createWidget()
-    this.createTopBar()
+    this.createTopBarButton()
     this.setWidgetPosition()
     this.trackMouse()
     this.addUi()
