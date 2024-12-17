@@ -68,7 +68,7 @@ export default class MouseCastExtension extends Extension {
       can_focus: false,
       height: this.#size,
       reactive: false,
-      style_class: 'sketchbuch-mousecast-overlay__halo',
+      style_class: 'sketchbuch-mousecast-overlay__spotlight1',
       track_hover: false,
       width: this.#size,
     })
@@ -78,23 +78,24 @@ export default class MouseCastExtension extends Extension {
     }
   }
 
-  setWidgetPosition(x: number, y: number) {
+  setWidgetPosition() {
     if (this.#widget) {
+      const [pointerX, pointerY] = Desktop.get_pointer()
+
       const widgetOffset = this.#size / 2
       const cursorOffsetX = 3
       const cursorOffsetY = 6
 
       this.#widget.set_position(
-        x - (widgetOffset - cursorOffsetX),
-        y - (widgetOffset - cursorOffsetY)
+        pointerX - (widgetOffset - cursorOffsetX),
+        pointerY - (widgetOffset - cursorOffsetY)
       )
     }
   }
 
   trackMouse() {
     global.stage.connect('captured-event', () => {
-      const [pointerX, pointerY] = Desktop.get_pointer()
-      this.setWidgetPosition(pointerX, pointerY)
+      this.setWidgetPosition()
     })
   }
 
@@ -108,13 +109,12 @@ export default class MouseCastExtension extends Extension {
 
   enable() {
     //this.#settings = this.getSettings()
-    const [initialPointerX, initialPointerY] = Desktop.get_pointer()
 
     this.createOverlay()
     this.createWidget()
     this.createTopBar()
-    this.setWidgetPosition(initialPointerX, initialPointerY)
-    this.addUi()
+    this.setWidgetPosition()
     this.trackMouse()
+    this.addUi()
   }
 }
