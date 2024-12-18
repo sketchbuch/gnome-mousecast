@@ -1,9 +1,12 @@
+import Clutter from 'gi://Clutter'
 import Shell from 'gi://Shell'
 import St from 'gi://St'
 import { Extension, ExtensionMetadata } from 'resource:///org/gnome/shell/extensions/extension.js'
 import * as Main from 'resource:///org/gnome/shell/ui/main.js'
 import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js'
 import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js'
+
+type TopBarMenu = PopupMenu.PopupMenu<PopupMenu.PopupMenu.SignalMap>
 
 const Desktop = Shell.Global.get()
 
@@ -13,6 +16,7 @@ export default class MouseCastExtension extends Extension {
   #overlay: null | St.Bin
   #size = 50
   #topbarButton: null | PanelMenu.Button
+  #topbarMenu: null | TopBarMenu
   #useModifier = true
   #widget: null | St.Widget
 
@@ -22,6 +26,7 @@ export default class MouseCastExtension extends Extension {
     //this.#settings = null
     this.#overlay = null
     this.#topbarButton = null
+    this.#topbarMenu = null
     this.#widget = null
   }
 
@@ -55,7 +60,7 @@ export default class MouseCastExtension extends Extension {
   }
 
   createTopBarButton() {
-    this.#topbarButton = new PanelMenu.Button(0.0, this.metadata.name, false)
+    this.#topbarButton = new PanelMenu.Button(0.5, this.metadata.name, false)
 
     const icon = new St.Icon({
       icon_name: 'input-mouse-symbolic',
@@ -67,12 +72,8 @@ export default class MouseCastExtension extends Extension {
 
   createTopBarMenu() {
     if (this.#topbarButton) {
-      /* const menu = new PopupMenu.PopupMenu(this.#topbarButton, 0.5, St.Side.TOP) */
-      /*menu.addAction('Settings', () => console.log('activated'))
-      this.#topbarButton.setMenu(menu) */
-      const menu = this.#topbarButton.menu as PopupMenu.PopupMenu
-      menu.addAction('Settings', () => console.log('activated'))
-      menu.setSourceAlignment(0.5)
+      this.#topbarMenu = this.#topbarButton.menu as TopBarMenu
+      this.#topbarMenu.addAction('Settings', () => console.log('activated'))
     }
   }
 
@@ -81,7 +82,7 @@ export default class MouseCastExtension extends Extension {
       can_focus: false,
       height: this.#size,
       reactive: false,
-      style_class: 'sketchbuch-mousecast-overlay__spotlight',
+      style_class: 'sketchbuch-mousecast-overlay__halo',
       track_hover: false,
       width: this.#size,
     })
@@ -94,7 +95,8 @@ export default class MouseCastExtension extends Extension {
   setWidgetPosition() {
     if (this.#overlay && this.#widget) {
       const [pointerX, pointerY, modifier] = Desktop.get_pointer()
-      const needsOverlay = (this.#useModifier && modifier === 20) || !this.#useModifier
+      const isCtrlPressed = modifier === Clutter.ModifierType.CONTROL_MASK
+      const needsOverlay = (this.#useModifier && isCtrlPressed) || !this.#useModifier
       const isVisible = this.#overlay.is_visible()
 
       if (needsOverlay) {
@@ -127,15 +129,22 @@ export default class MouseCastExtension extends Extension {
   }
 
   disable() {
-    this.#overlay = null
-    //this.#settings = null
-    this.#topbarButton?.destroy()
-    this.#topbarButton = null
-    this.#widget = null
-
     if (this.#mouseTrackerId !== -1) {
       global.stage.disconnect(this.#mouseTrackerId)
+      this.#mouseTrackerId = -1
     }
+
+    this.#overlay?.destroy()
+    this.#overlay = null
+
+    this.#topbarButton?.destroy()
+    this.#topbarButton = null
+
+    this.#topbarMenu?.destroy()
+    this.#topbarMenu = null
+
+    this.#widget?.destroy()
+    this.#widget = null
   }
 
   enable() {
