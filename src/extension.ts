@@ -115,10 +115,10 @@ export default class MouseCastExtension extends Extension {
       }
 
       if (needsOverlay && !isVisible) {
-        log(`### showing`)
+        log(`########### showing`)
         this.#overlay?.show()
       } else if (!needsOverlay && isVisible) {
-        log(`### hiding`)
+        log(`########### hiding`)
         this.#overlay?.hide()
       }
     }
