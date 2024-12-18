@@ -9,6 +9,7 @@ import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js'
 type TopBarMenu = PopupMenu.PopupMenu<PopupMenu.PopupMenu.SignalMap>
 
 const Desktop = Shell.Global.get()
+const debugModifier = false
 
 export default class MouseCastExtension extends Extension {
   //#settings: null | Gio.Settings
@@ -99,7 +100,9 @@ export default class MouseCastExtension extends Extension {
       const needsOverlay = (this.#useModifier && isCtrlPressed) || !this.#useModifier
       const isVisible = this.#overlay.is_visible()
 
-      log(`### modifier: ${modifier}, isCtrlPressed: ${isCtrlPressed}`)
+      if (debugModifier) {
+        log(`### modifier: ${modifier}, isCtrlPressed: ${isCtrlPressed}`)
+      }
 
       if (needsOverlay) {
         const widgetOffset = this.#size / 2
@@ -115,10 +118,14 @@ export default class MouseCastExtension extends Extension {
       }
 
       if (needsOverlay && !isVisible) {
-        log(`########### showing`)
+        if (debugModifier) {
+          log(`########### showing`)
+        }
         this.#overlay?.show()
       } else if (!needsOverlay && isVisible) {
-        log(`########### hiding`)
+        if (debugModifier) {
+          log(`########### hiding`)
+        }
         this.#overlay?.hide()
       }
     }
