@@ -99,6 +99,8 @@ export default class MouseCastExtension extends Extension {
       const needsOverlay = (this.#useModifier && isCtrlPressed) || !this.#useModifier
       const isVisible = this.#overlay.is_visible()
 
+      log(`### modifier: ${modifier}, isCtrlPressed: ${isCtrlPressed}`)
+
       if (needsOverlay) {
         const widgetOffset = this.#size / 2
         /* const cursorOffsetX = 3
@@ -113,8 +115,10 @@ export default class MouseCastExtension extends Extension {
       }
 
       if (needsOverlay && !isVisible) {
+        log(`### showing`)
         this.#overlay?.show()
       } else if (!needsOverlay && isVisible) {
+        log(`### hiding`)
         this.#overlay?.hide()
       }
     }
