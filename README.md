@@ -36,11 +36,12 @@ gnome-extensions enable mousecast@sketchbuch.dev
 ### Articles/Help
 
 - [Getting started with GNOME Shell extension development](https://blog.jamesreed.dev/gnome-shell-extension-development)
+- [How to handle keyboard events in gnome shell extensions?](https://stackoverflow.com/questions/28522031/how-to-handle-keyboard-events-in-gnome-shell-extensions)
 - [Imports and Modules](https://gjs.guide/extensions/overview/imports-and-modules.html)
+- [Ripple effect in CSS (not hot corner)](https://codepen.io/chris22smith/pen/NWwzYrZ)
 - [Step by step tutorial to create extensions](https://wiki.gnome.org/Attic/GnomeShell/Extensions/StepByStepTutorial)
 - [Where can I see a list of css supported properties?](https://discourse.gnome.org/t/where-can-i-see-a-list-of-css-supported-properties/5807)
 - [Why doesn’t my gschema added to dconf after enablnig my extension](https://discourse.gnome.org/t/why-doesnt-my-gschema-added-to-dconf-after-enablnig-my-extension/16148)
-- [Ripple effect in CSS (not hot corner)](https://codepen.io/chris22smith/pen/NWwzYrZ)
 
 ### GJS / Gnome Shell
 
@@ -61,6 +62,7 @@ gnome-extensions enable mousecast@sketchbuch.dev
 
 - [Colour Tint](https://github.com/MattByName/color-tint)
 - [Jiggle](https://github.com/jeffchannell/jiggle)
+- [Keyboard Modifiers Status](https://github.com/sneetsher/keyboard_modifiers_status)
 - [ScreenCoordinates](https://github.com/tobias47n9e/ScreenCoordinates)
 - [Tiling Shell](https://github.com/domferr/tilingshell/blob/main/package.json)
 
