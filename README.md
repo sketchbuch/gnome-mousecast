@@ -40,6 +40,7 @@ gnome-extensions enable mousecast@sketchbuch.dev
 - [Imports and Modules](https://gjs.guide/extensions/overview/imports-and-modules.html)
 - [Ripple effect in CSS (not hot corner)](https://codepen.io/chris22smith/pen/NWwzYrZ)
 - [Step by step tutorial to create extensions](https://wiki.gnome.org/Attic/GnomeShell/Extensions/StepByStepTutorial)
+- [Typescript setup for GNOME Shell extensions](https://swsnr.writeas.com/typescript-setup-for-gnome-shell-extensions)
 - [Where can I see a list of css supported properties?](https://discourse.gnome.org/t/where-can-i-see-a-list-of-css-supported-properties/5807)
 - [Why doesn’t my gschema added to dconf after enablnig my extension](https://discourse.gnome.org/t/why-doesnt-my-gschema-added-to-dconf-after-enablnig-my-extension/16148)
 
