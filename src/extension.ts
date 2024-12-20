@@ -73,7 +73,13 @@ export default class MouseCastExtension extends Extension {
   createTopBarMenu() {
     if (this.#topbarButton) {
       this.#topbarMenu = this.#topbarButton.menu as TopBarMenu
-      this.#topbarMenu.addAction('Settings', () => console.log('activated'))
+      this.#topbarMenu.addSettingsAction('Settings', '')
+
+      const enabled = new PopupMenu.PopupSwitchMenuItem('Active', true)
+      this.#topbarMenu.addMenuItem(enabled, 3)
+
+      const modifier = new PopupMenu.PopupSwitchMenuItem('Use Ctrl Key', this.#useModifier)
+      this.#topbarMenu.addMenuItem(modifier, 4)
     }
   }
 
@@ -142,8 +148,11 @@ export default class MouseCastExtension extends Extension {
       this.#mouseTrackerId = -1
     }
 
-    this.#overlay?.destroy()
-    this.#overlay = null
+    if (this.#overlay) {
+      Main.layoutManager.removeChrome(this.#overlay)
+      this.#overlay?.destroy()
+      this.#overlay = null
+    }
 
     this.#topbarButton?.destroy()
     this.#topbarButton = null

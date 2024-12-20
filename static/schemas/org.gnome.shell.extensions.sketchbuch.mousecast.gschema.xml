@@ -11,7 +11,7 @@
     path="/org/gnome/shell/extensions/mousecast/">
     <key name="overlay-type"
       enum="org.gnome.shell.extensions.mousecast.overlay-type">
-      <default>'SPOTLIGHT'</default>
+      <default>'HALO'</default>
       <summary>summary</summary>
       <description>description</description>
     </key>
