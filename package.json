@@ -34,7 +34,7 @@
     "lint:prettier": "prettier --write --config ./.prettierrc.js './src/**/*.ts'",
     "lint:ts": "eslint ./src --fix",
     "lint": "pnpm lint:ts && pnpm lint:prettier",
-    "package": "pnpm typecheck && pnpm lint && pnpm clean && pnpm compile:ts",
+    "package": "pnpm lint && pnpm typecheck && pnpm clean && pnpm compile:ts",
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
