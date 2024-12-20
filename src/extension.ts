@@ -116,15 +116,7 @@ export default class MouseCastExtension extends Extension {
 
       if (needsOverlay) {
         const widgetOffset = this.#size / 2
-        /* const cursorOffsetX = 3
-        const cursorOffsetY = 6 */
-        const cursorOffsetX = 0
-        const cursorOffsetY = 0
-
-        this.#widget.set_position(
-          pointerX - (widgetOffset - cursorOffsetX),
-          pointerY - (widgetOffset - cursorOffsetY)
-        )
+        this.#widget.set_position(pointerX - widgetOffset, pointerY - widgetOffset)
       }
 
       if (needsOverlay && !isVisible) {
