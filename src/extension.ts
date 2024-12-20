@@ -102,14 +102,15 @@ export default class MouseCastExtension extends Extension {
     if (this.#overlay && this.#widget) {
       // modifier is a combinatioon of all modifiers
       const [pointerX, pointerY, modifier] = Desktop.get_pointer()
-      const isCtrlPressed =
-        (modifier &
-          ~(
-            Clutter.ModifierType.MOD2_MASK |
-            Clutter.ModifierType.LOCK_MASK |
-            Clutter.ModifierType.SHIFT_MASK
-          )) ===
-        Clutter.ModifierType.CONTROL_MASK
+      const isCtrlPressed = this.#useModifier
+        ? (modifier &
+            ~(
+              Clutter.ModifierType.MOD2_MASK |
+              Clutter.ModifierType.LOCK_MASK |
+              Clutter.ModifierType.SHIFT_MASK
+            )) ===
+          Clutter.ModifierType.CONTROL_MASK
+        : false
       const needsOverlay = (this.#useModifier && isCtrlPressed) || !this.#useModifier
       const isVisible = this.#overlay.is_visible()
 
